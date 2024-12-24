@@ -8,6 +8,19 @@ form.addEventListener('submit', function(event) {
     const telefone = document.getElementById('phone').value;
 
     if (nome && telefone) {
+        let telefoneExiste = false;
+        const linhas = listaDeContato.querySelectorAll('tr');
+
+        linhas.forEach(function(linha) {
+            const telefoneExistente = linha.cells[1].textContent;
+            if (telefoneExistente === telefone) {
+                telefoneExiste = true;
+            }
+        });
+
+        if (telefoneExiste) {
+            alert('Este número já está cadastrado.');
+        } else {
         const newRow = document.createElement('tr');
 
         newRow.innerHTML = `
@@ -16,7 +29,7 @@ form.addEventListener('submit', function(event) {
         `;
 
         listaDeContato.appendChild(newRow);
-
+        }
         form.reset();
     } else {
         alert('Por favor, preencha todos os campos.');
